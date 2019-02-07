@@ -1,24 +1,23 @@
 const pgp = require('pg-promise')();
-const connection = require('./config/keys').connection;
+
+const connection = require('../config/keys').connection;
 
 const db = pgp(connection);
 
-// Queries
 const getTournamentWins = (req, res, next) => {
     db.any(
         `SELECT * 
             FROM matches2000todate
-            WHERE winner LIKE 'Nadal%'
+            WHERE winner ILIKE '${req.params.searchQuery}%'
             AND match_round = 'The Final'
-            AND surface = 'Clay'
             ORDER BY match_date DESC;`,
         [true]
     )
-        .then(function(data) {
+        .then(data => {
             res.json(data);
         })
-        .catch(function(error) {
-            console.log(error);
+        .catch(error => {
+            res.json(error);
         });
 };
 

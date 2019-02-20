@@ -7,7 +7,6 @@ const SearchBar = props => {
             onKeyUp={props.inputHandler}
             placeholder="Search player or event"
             type="text"
-            autoFocus
         />
     );
 };

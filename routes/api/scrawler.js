@@ -6,7 +6,7 @@ const router = express.Router();
 
 const axios = require('axios');
 
-router.get('/top-ten/:rankSize', (req, res) => {
+router.get('/rankings/:rankSize', (req, res) => {
     axios({
         method: 'get',
         url: 'http://www.espn.com/tennis/rankings',

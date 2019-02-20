@@ -1,0 +1,27 @@
+@import '../shared/variables.scss';
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    // 1rem = 10px
+    font-size: 62.5%;
+}
+
+body {
+    box-sizing: border-box;
+    padding: 1.5rem;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    background-color: $color-gray-light-1;
+    font-family: 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -7,10 +7,10 @@ const db = pgp(connection);
 const getTournamentWins = (req, res, next) => {
     db.any(
         `SELECT * 
-            FROM matches2000todate
-            WHERE winner ILIKE '${req.params.searchQuery}%'
-            AND match_round = 'The Final'
-            ORDER BY match_date DESC;`,
+            FROM atp_matches
+            WHERE winner_name ILIKE '%${req.params.searchQuery}%'
+            AND round = 'F'
+            ORDER BY tourney_date DESC;`,
         [true]
     )
         .then(data => {

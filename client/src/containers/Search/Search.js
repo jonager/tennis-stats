@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import Select from 'react-select';
 import axios from 'axios';
 
-import styles from './Search.module.scss';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import * as helpers from '../../shared/helpers';
 
 class Search extends Component {
     state = {
-        tourneyWins: null
+        tourneyWins: null,
+        players: [],
+        selectedOption: ''
     };
 
     timeout = null;
@@ -24,16 +27,53 @@ class Search extends Component {
             });
     };
 
+    getPlayers = searchQuery => {
+        axios
+            .get(`/api/players/all/${searchQuery}`)
+            .then(response => {
+                this.setState({
+                    players: helpers.formatObjectReactSelect(response.data)
+                });
+            })
+            .catch(error => {
+                console.log(error.data);
+            });
+    };
+
     inputHandler = event => {
-        event.persist();
         clearTimeout(this.timeout);
+        if (!event) {
+            return;
+        }
         this.timeout = setTimeout(() => {
-            this.getTournamentWins(event.target.value);
+            this.getPlayers(event);
         }, 1000);
     };
+
+    handleChange = selectedOption => {
+        this.setState({
+            selectedOption: selectedOption
+        });
+        this.props.history.push({
+            pathname: `/player/${selectedOption.value}`
+        });
+    };
+
     render() {
-        return <SearchBar inputHandler={this.inputHandler} />;
+        return (
+            <Select
+                value={this.state.selectedOption}
+                options={this.state.players}
+                onInputChange={this.inputHandler}
+                onChange={this.handleChange}
+                components={{
+                    DropdownIndicator: () => null,
+                    IndicatorSeparator: () => null
+                }}
+                placeholder={'Search a player...'}
+            />
+        );
     }
 }
 
-export default Search;
+export default withRouter(Search);

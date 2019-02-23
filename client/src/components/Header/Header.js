@@ -5,20 +5,26 @@ import styles from './Header.module.scss';
 
 const Header = () => {
     return (
-        <React.Fragment>
-            <div>
-                <span>tennis-stats</span>
-                <div>
+        <div className={styles.Header}>
+            <div className={styles.Header__left}>
+                <span className={styles.Header__logo}>
+                    <a href="/">tennis-stats</a>{' '}
+                </span>
+                <div className={styles.Header__input}>
                     <Search />
                 </div>
             </div>
-            <div>
-                <ul>
-                    <li>Records</li>
-                    <li>About</li>
+            <nav className={styles.Header__nav}>
+                <ul className={styles.Header__list}>
+                    <li className={styles.Header__item}>
+                        <a href="/">Records</a>{' '}
+                    </li>
+                    <li className={styles.Header__item}>
+                        <a href="/">About</a>{' '}
+                    </li>
                 </ul>
-            </div>
-        </React.Fragment>
+            </nav>
+        </div>
     );
 };
 

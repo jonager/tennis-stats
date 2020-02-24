@@ -21,6 +21,40 @@ const getTournamentWins = (req, res, next) => {
         });
 };
 
+const getPlayers = (req, res, next) => {
+    db.any(
+        `SELECT * 
+            FROM atp_players
+            WHERE first_name ILIKE '%${req.params.searchQuery}%'
+            OR last_name ILIKE '%${req.params.searchQuery}%'
+            ORDER BY last_name`,
+        [true]
+    )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(error => {
+            res.json(error);
+        });
+};
+
+const getPlayer = (req, res, next) => {
+    db.any(
+        `SELECT * 
+            FROM atp_players
+            WHERE player_id = ${req.params.id}`,
+        [true]
+    )
+        .then(data => {
+            res.json(data);
+        })
+        .catch(error => {
+            res.json(error);
+        });
+};
+
 module.exports = {
-    getTournamentWins: getTournamentWins
+    getTournamentWins: getTournamentWins,
+    getPlayers: getPlayers,
+    getPlayer: getPlayer
 };

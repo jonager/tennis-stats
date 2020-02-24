@@ -1,10 +1,11 @@
 import React from 'react';
+import * as helpers from '../../shared/helpers';
 
 const TableRow = props => {
     let row = props.row.map(rowEle => {
         if (rowEle.split('/').includes('tennis')) {
             return (
-                <td>
+                <td key={helpers.generateId()}>
                     <a href={`http://www.espn.com${rowEle}`}>
                         {props.playerName}
                     </a>
@@ -12,12 +13,12 @@ const TableRow = props => {
             );
         } else if (rowEle.split('.').includes('gif')) {
             return (
-                <td>
+                <td key={helpers.generateId()}>
                     <img src={rowEle} alt="country" />
                 </td>
             );
         } else {
-            return <td>{rowEle}</td>;
+            return <td key={helpers.generateId()}>{rowEle}</td>;
         }
     });
 

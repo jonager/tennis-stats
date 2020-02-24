@@ -6,12 +6,22 @@ import TableRow from '../../components/TableRow/TableRow';
 const RankingsTable = props => {
     let header = ['Rank', 'Player', 'Country', 'Move', 'Points'];
     let tableRows = props.rankings.map((player, idx) => {
-        return <TableRow row={player} playerName={props.players[idx]} />;
+        console.log(player.splice(-1, 1));
+        return (
+            <TableRow
+                key={player.splice(-1, 1).toString()}
+                row={player}
+                playerName={props.players[idx]}
+            />
+        );
     });
+
     return (
         <table>
-            <TableHeader header={header} />
-            {tableRows}
+            <tbody>
+                <TableHeader header={header} />
+                {tableRows}
+            </tbody>
         </table>
     );
 };
